@@ -5,6 +5,7 @@ use clap::Parser;
 
 mod args;
 mod store;
+mod system;
 
 const APP_NAME: &str = "hypr-utils";
 
@@ -21,7 +22,8 @@ fn main() {
     };
 
     let result = match args.cmd {
-        Cmd::Store(store_cmd) => store::handle_cmd(ctx, store_cmd),
+        Cmd::Store(cmd) => store::handle_cmd(ctx, cmd),
+        Cmd::System(cmd) => system::handle_cmd(ctx, cmd),
     };
 
     if let Err(e) = result {

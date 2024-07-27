@@ -48,6 +48,9 @@ pub enum Cmd {
     /// Keys are strings, values are JSONs
     #[command(subcommand)]
     Store(StoreCmd),
+    /// Commands for getting system information
+    #[command(subcommand)]
+    System(SystemCmd),
 }
 
 #[derive(Debug, Subcommand, PartialEq)]
@@ -66,6 +69,12 @@ pub enum StoreCmd {
     ///
     /// On subsequent runs, if the command fails, the cached value will be used instead
     Cached { cmd: String },
+}
+
+#[derive(Debug, Subcommand, PartialEq)]
+pub enum SystemCmd {
+    /// Print the current battery status in a pretty format
+    Battery,
 }
 
 /// A wrapper type around [`serde_json::Value`] that tries to parse the text as a JSON, but falls
