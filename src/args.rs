@@ -43,20 +43,29 @@ fn default_config_dir() -> PathBuf {
 
 #[derive(Debug, Parser, PartialEq)]
 pub enum Cmd {
+    /// Commands for interacting with a simple key-value store
+    ///
+    /// Keys are strings, values are JSONs
     #[command(subcommand)]
     Store(StoreCmd),
 }
 
 #[derive(Debug, Subcommand, PartialEq)]
 pub enum StoreCmd {
-    Get {
-        key: String,
-    },
+    /// Get a value from the store
+    Get { key: String },
+    /// Set a value in the store
+    ///
+    /// Values will be parsed as JSON where possible
     Set {
         key: String,
         #[arg(value_parser = value_parser!(CliJson))]
         value: CliJson,
     },
+    /// Run a command and print the output, caching the result
+    ///
+    /// On subsequent runs, if the command fails, the cached value will be used instead
+    Cached { cmd: String },
 }
 
 /// A wrapper type around [`serde_json::Value`] that tries to parse the text as a JSON, but falls
