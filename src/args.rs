@@ -74,7 +74,11 @@ pub enum StoreCmd {
 #[derive(Debug, Subcommand, PartialEq)]
 pub enum SystemCmd {
     /// Print the current battery status in a pretty format
-    Battery,
+    Battery {
+        // The number of spaces to put between the symbol and the percentage
+        #[arg(long, short, default_value = "1")]
+        num_spaces: u32,
+    },
 }
 
 /// A wrapper type around [`serde_json::Value`] that tries to parse the text as a JSON, but falls
