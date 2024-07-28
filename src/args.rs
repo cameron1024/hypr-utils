@@ -78,6 +78,16 @@ pub enum SystemCmd {
         // The number of spaces to put between the symbol and the percentage
         #[arg(long, short, default_value = "1")]
         num_spaces: u32,
+
+        /// Override the current charge level
+        ///
+        // Must be in the range `0..=100`
+        #[arg(long)]
+        override_percentage: Option<u8>,
+
+        // Override whether the battery is currently charging
+        #[arg(long)]
+        override_charging: Option<bool>,
     },
 }
 
