@@ -39,7 +39,7 @@
         src = craneLib.cleanCargoSource ./.;
         strictDeps = true;
         nativeBuildInputs = with pkgs; [
-          sqlite
+          # sqlite
         ];
       };
     in {

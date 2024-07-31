@@ -7,7 +7,11 @@ edition = "2021"
 battery = "0.7.8"
 clap = { version = "4.5.11", features = ["derive", "string"] }
 rand = "0.8.5"
-rusqlite = { version = "0.32.1", features = ["serde_json"] }
+rusqlite = { version = "0.32.1", features = ["serde_json", "bundled"] }
 serde = { version = "1.0.204", features = ["derive"] }
 serde_json = "1.0.120"
 xdg = "2.5.2"
+
+[profile.release]
+lto = true
+codegen-units = 1

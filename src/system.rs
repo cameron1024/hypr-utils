@@ -44,7 +44,7 @@ fn battery<W: Write>(
         (false, 20..40) => "",
         (false, 40..60) => "",
         (false, 60..80) => "",
-        (false, 80..100) => "",
+        (false, 80..=100) => "",
         _ => unreachable!(),
     };
 

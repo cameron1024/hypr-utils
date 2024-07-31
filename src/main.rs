@@ -1,7 +1,8 @@
 use std::io::{stdout, Write};
 
-use args::{Cmd, Options};
+use args::{Cmd, JsonFormat, Options};
 use clap::Parser;
+use serde_json::Value;
 
 mod args;
 mod store;
@@ -12,6 +13,22 @@ const APP_NAME: &str = "hypr-utils";
 struct Context<W: Write> {
     opts: Options,
     out: W,
+}
+
+impl<W: Write> Context<W> {
+    fn write_json(&mut self, value: &Value) -> std::io::Result<()> {
+        match self.opts.json_format {
+            JsonFormat::Accurate => write!(&mut self.out, "{value}"),
+            JsonFormat::Convenient => match value {
+                Value::String(s) => write!(&mut self.out, "{s}"),
+                other => write!(&mut self.out, "{other}"),
+            },
+        }
+    }
+
+    fn writeln(&mut self) -> std::io::Result<()> {
+        writeln!(&mut self.out)
+    }
 }
 
 fn main() {
